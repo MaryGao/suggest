@@ -58,5 +58,12 @@ query：gram1:c, gram2:co^2.0 ...
 * 查看eclipse的TODO选项卡，我标注了一些缺陷
 * 对于各种参数  如boost值和搜索精度的设置，需要根据自己的搜索结果进行调整
 * 索引生成策略的优化：拼音首字母的unigram(都是单个字母)是否必要？拼音索引只要unigram是否能满足需求？
+
+
+## Futher Reading
+
+[Lingpipe 搜索建议实现][1]
+[1]: http://alias-i.com/lingpipe/demos/tutorial/querySpellChecker/read-me.html
+
    
 
