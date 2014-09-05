@@ -1,13 +1,15 @@
 # 中文Suggest功能实现
 
-本模块参考Apache Lucene Suggest， 更改扩展使其支持拼音和拼音首字母的提示。严格意义上讲，纯中文不存在拼写纠正，每一个中文字都是正确的，我们这里称呼其为搜索建议，通过对用户输入的解析，提供贴近搜索引擎的搜索建议，以获得更好的搜索结果。
+本模块参考Apache Lucene Suggest， 更改扩展使其支持拼音，拼音首字母以及汉字拼音首字母混合的提示。严格意义上讲，纯中文不存在拼写纠正，每一个中文字都是正确的，我们这里称呼其为搜索建议，通过对用户输入的解析，提供贴近搜索引擎的搜索建议，以获得更好的搜索结果。
 
 ## Install and  Usage
 
 ### Install
 checkout Suggestor这个类，放到你的项目中，添加相关依赖即可.
-注意，这里使用的IKAnalyzer是经过我改动的测试Analyzer,其余的依赖均为官方发布包 如果你仅仅只是想要项目运行，可以 [联系我][1]。
-[1]: mailto:zechuanyoung@gmail.com
+注意，这里使用的IKAnalyzer需要添加一个扩展的拼音词典保证用户输入的拼音可以正常解析。添加方式：
+解压pinyin4j, 找到pinyindb包下的unicode_to_hunyu_pinyin.txt, 使用vim替换掉附带信息只留拼音， 如4E0B (xia4) 替换unicode， 括号和4（代表声调），只留xia。然后将处理后的文件配置为ik的扩展词典。
+
+配置后的IKAnalyzer对于输入：guo民生产zz 分词为 guo 民  生产  z z;  
 
 ### Usage
     Suggestor sug = new Suggestor("your_spellindex_dir");
@@ -62,7 +64,7 @@ query：gram1:c, gram2:co^2.0 ...
 
 ## Futher Reading
 
-[Lingpipe 搜索建议实现][1]
+[Lingpipe 基于Character NGram Language Model的搜索建议的实现][1]
 [1]: http://alias-i.com/lingpipe/demos/tutorial/querySpellChecker/read-me.html
 
    
