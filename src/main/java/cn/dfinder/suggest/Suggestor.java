@@ -462,6 +462,8 @@ public class Suggestor implements java.io.Closeable {
 	      }
 	      // close writer
 	      writer.close();
+	      //需要重新打开searcher，否则新添加的索引不能被当前lucene实例搜索到
+	      swapSearcher(spellIndex);
 		}
   }
     	  

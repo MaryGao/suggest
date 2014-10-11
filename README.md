@@ -2,6 +2,7 @@
 
 本模块参考Apache Lucene Suggest， 更改扩展使其支持拼音，拼音首字母以及汉字拼音首字母混合的提示。严格意义上讲，纯中文不存在拼写纠正，每一个中文字都是正确的，我们这里称呼其为搜索建议，通过对用户输入的解析，提供贴近搜索引擎的搜索建议，以获得更好的搜索结果。
 
+
 ## Install and  Usage
 
 ### Install
@@ -11,7 +12,10 @@ checkout Suggestor这个类，放到你的项目中，添加相关依赖即可.
 
 配置后的IKAnalyzer对于输入：guo民生产zz 分词为 guo 民  生产  z z;  
 
+
 ### Usage
+	运行`cn.dfinder.suggest.Test`。
+	
     Suggestor sug = new Suggestor("your_spellindex_dir");
     //如果你还没有建立搜索建议索引
     sug.updateSuggestIndex(bufferedReader, indexWriterConfig, fullMerge);
@@ -33,7 +37,7 @@ gram4: comp, gram4:ompu ...
 
 假设用户输入compter,
 
-首先解析成gram1 - gram4，然后组成一个boolean query对索引进行搜索。
+首先解析成gram1 - gram4，然后组成一个should boolean query对索引进行搜索。
 
 query：gram1:c, gram2:co^2.0 ...
 
@@ -47,7 +51,7 @@ query：gram1:c, gram2:co^2.0 ...
 在本实现中直接筛选Hits的得分来筛选与用户输入相关很低的结果。
 
 * 更改了搜索spell index的boost值
-对于NGram, boost = n * DEFAULT_ACCURACY;
+对于NGram, boost = n * DEFAULT_BOOST;
 
 * 增加了拼音首字母和拼音的NGram索引
 汉语词和拼音首字母：Unigram 到 4Gram；
@@ -60,6 +64,7 @@ query：gram1:c, gram2:co^2.0 ...
 * 查看eclipse的TODO选项卡，我标注了一些缺陷
 * 对于各种参数  如boost值和搜索精度的设置，需要根据自己的搜索结果进行调整
 * 索引生成策略的优化：拼音首字母的unigram(都是单个字母)是否必要？拼音索引只要unigram是否能满足需求？
+* 如何增加热词的权重？如何让热词随时间衰减？
 
 
 ## Futher Reading
